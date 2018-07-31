@@ -1,0 +1,59 @@
+FROM python:3.6
+
+MAINTAINER fnst
+
+WORKDIR /root
+COPY ["./Neo4j_UI", "/root/Neo4j_UI"]
+#COPY ["./install_graphvis.sh", "/root"]
+#COPY ["./install_xgboost.sh", "/root"]
+COPY ["./requirements.txt", "/root"]
+COPY ["./defer-1.0.6.tar.gz", "/root"]
+#COPY ["./meteor-bootstrap-os.linux.x86_64.tar.gz", "/root"]
+#COPY ["./install_meteor", "/root"]
+
+#ENV HTTP_PROXY http://10.167.129.21:8080
+#ENV HTTPS_PROXY https://10.167.129.21:8080
+
+#ENV http_proxy http://10.167.129.21:8080
+#ENV https_proxy https://10.167.129.21:8080
+
+#enable utf8 or the mongodb will not start
+RUN echo "en_US UTF-8" >> /etc/locale.gen
+RUN echo "LANG=en_US.UTF-8" > /etc/environment
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+RUN apt-get update && apt-get install -y locales
+RUN locale-gen
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+
+ENV METEOR_ALLOW_SUPERUSER true
+
+WORKDIR /root/Neo4j_UI
+RUN apt-get update
+RUN echo "54.192.225.217 warehouse.meteor.com" >> /etc/hosts
+RUN curl https://install.meteor.com/ | sh
+#RUN sh /root/install_meteor
+#RUN meteor npm install -g npm@5.6.0
+RUN meteor npm install
+RUN apt-get install libcurl4-openssl-dev
+#RUN sh /root/install_graphvis.sh
+RUN apt-get install -y graphviz libgraphviz-dev pkg-config
+RUN pip install pygraphviz --install-option="--include-path=/usr/include/graphviz" --install-option="--library-path=/usr/lib/graphviz/"
+RUN pip install /root/defer-1.0.6.tar.gz
+RUN pip install -r /root/requirements.txt
+#RUN sh /root/install_xgboost.sh
+RUN cd ~ \
+    && git clone --recursive https://github.com/dmlc/xgboost \
+    && cd xgboost \
+    && git submodule init \
+    && git submodule update \
+    && cp make/mingw64.mk config.mk \
+    && make -j4 \
+    && cd python-package/ \
+    && python3 setup.py install --user \
+    && rm -rf ~/xgboost
+WORKDIR /root/Neo4j_UI
+EXPOSE 3000
+ENTRYPOINT ["make"]
+CMD ["run_all"]
+
