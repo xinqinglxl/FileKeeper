@@ -1,0 +1,25 @@
+PH03393
+PH04074
+PH06557
+PH07246
+PH08067 
+PH03410
+PH06803
+40_MK\V11.3\CT自動化\TestSet
+
+PH04250
+40_MK\V11.3\JavaEE7_ope\PH04250
+
+应用场景
+行人重识别 ---- 大师兄的火眼金睛识别白骨精 ----- 找到行人身上局部不变的part
+能否用人脸识别来做行人重识别 ----- 行人重识别的难点(画质不清楚、部位遮挡、姿态、视角、光照、类似的衣服等)
+行人重识别工作流程 -----Pedestrian description & Distance Metric Learning---- re-ID系统分成几个模块 person detection，person tracking，以及person retrieval
+传统技术
+基于深度学习技术
+常见策略：分类问题(Deep transfer learning for person reidentification)、图片库中相似度排序(triplet loss)
+解决跨域问题
+行人重识别的评估标准：topk准确率 ---- mAP
+常用数据集
+常用模型
+demo介绍 ---- 人检测，单摄像头追踪(撞线检测计算人数)，多个摄像头tracking
+发展方向:使用GAN
