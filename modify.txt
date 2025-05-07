@@ -8,3 +8,14 @@
     5) 对于各算法和策略，建议总结一下要解决的问题、面临的难点、注意点等内容。 
     5) P12~P14，几个实例，建议说明一下实际效果和指标，比如识别率、速度等，以及策略实践后的总结体会。 
 
+火山引擎deepseek-r1(0525)
+0785e2a4-35e9-42cf-b875-904b5739ab57
+https://ark.cn-beijing.volces.com/api/v3/chat/completions
+deepseek-r1-250120
+https://ark.cn-beijing.volces.com/api/v3/bots/chat/completions
+bot-20250302132144-j8hj6
+
+openrouter
+https://openrouter.ai/api/v1
+deepseek/deepseek-chat-v3-0324:free
+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
